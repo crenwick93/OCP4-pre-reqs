@@ -1,0 +1,51 @@
+- name: Install Packages
+  package:
+    name:
+      - httpd
+      - php
+      - policycoreutils-python
+    state: latest
+    use: auto
+
+- name: Allow httpd to listen on TCP port 8080
+  seport:
+    ports: "8080"
+    proto: tcp
+    setype: http_port_t
+    state: present
+
+- name: Copy httpd.conf Template
+  template:
+    src: templates/httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+    owner: root
+    group: root
+    mode: 0644
+    setype: httpd_config_t
+
+- name: Copy route-ens192 Template
+  template:
+    src: templates/route-ens192.j2
+    dest: /etc/sysconfig/network-scripts/route-ens192
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Allow http port 8080 on the firewall
+  firewalld:
+    port: 8080/tcp
+    permanent: yes
+    state: enabled
+
+- name: Enable/Start httpd Service
+  systemd:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Restart network Service
+  systemd:
+    name: network
+    state: restarted
+    enabled: yes
+

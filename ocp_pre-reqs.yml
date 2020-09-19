@@ -1,0 +1,28 @@
+---
+- name: Install and Configure Apache Webserver
+  hosts: localhost
+  roles:
+    - role: httpd
+      tags: 
+        - httpd
+
+- name: Install and Configure Apache DNS
+  hosts: localhost
+  roles:
+    - role: dns
+      tags: 
+        - dns
+
+- name: Install and Configure Apache Registry
+  hosts: localhost
+  roles:
+    - role: registry
+      tags: 
+        - registry
+
+- name: Install and Configure Apache HAProxy
+  hosts: localhost
+  roles:
+    - role: haproxy
+      tags: 
+        - haproxy

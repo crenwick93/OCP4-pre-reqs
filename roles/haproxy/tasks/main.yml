@@ -1,0 +1,47 @@
+- name: Install HAProxy Packages
+  package:
+    name: haproxy
+    state: present
+    use: auto
+
+- name: Copy haproxy.cfg Template
+  template:
+    src: templates/haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0644
+    setype: etc_t
+
+- name: Configure firewall ports
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+    immediate: yes
+  loop: 
+    - 9000/tcp
+    - 443/tcp
+    - 80/tcp
+    - 6443/tcp
+    - 6443/udp
+    - 22623/tcp
+    - 22623/udp
+
+- name: Enable haproxy_connect_any
+  seboolean:
+    name: haproxy_connect_any
+    state: yes
+    persistent: yes
+
+- name: Enable/Start haproxy Service
+  systemd:
+    name: haproxy
+    state: restarted
+    enabled: yes
+
+- name: Test HA proxy
+  uri:
+    url: "http://{{ helper_node_ip }}:9000"
+    method: GET
+    status_code: 200
