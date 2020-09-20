@@ -13,21 +13,21 @@
     state: directory
     mode: '0755'
   with_items: ["auth","certs","data"]
-  become: true
+
 
 - name: Create a certificate 
   command: 
     cmd: openssl req -newkey rsa:4096 -nodes -sha256 -keyout domain.key -x509 -days 365 -out domain.crt -subj "/C=US/ST=California/L=Sunnyvale/O=Red Hat, Inc./OU=Solution Architecture/CN={{ registry.host }}"
     chdir: /opt/registry/certs
-  become: true
+
 
 - name: Create a username and password in a httpasswd file
   htpasswd:
-  path: /opt/registry/auth/htpasswd
-  name: "{{ registry.username }}"
-  password: "{{ registry.password }}"
-  mode: 0640
-  become: true
+    path: /opt/registry/auth/htpasswd
+    name: "{{ registry.username }}"
+    password: "{{ registry.password }}"
+    mode: 0640
+
 
 
 - name: Ensure no pods are by default running
@@ -45,7 +45,7 @@
         -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
         -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
         -d docker.io/library/registry:2
-  become: true
+
 
 - name: Open up the required ports thru firewall
   firewalld:
@@ -56,7 +56,7 @@
   loop:
     - { port: "{{ registry.port }}", zone: "internal"}
     - { port: "{{ registry.port }}", zone: "public"}
-  become: true
+
 
 - name: If the domain.crt already exists, remove it 
   file: 
