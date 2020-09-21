@@ -1,5 +1,12 @@
 ---
 
+- name: Install a list of packages
+  yum:
+    name:
+      - bind
+      - bind-utils
+    state: present
+
 - name: Make backup of default DNS config
   copy:
     src: /etc/named.conf
