@@ -7,11 +7,6 @@
       - bind-utils
     state: present
 
-- name: Make backup of default DNS config
-  copy:
-    src: /etc/named.conf
-    dest: /etc/named.conf.vanilla
-
 - name: Create DNS named config file
   template:
     src: templates/config.j2
