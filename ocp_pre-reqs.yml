@@ -1,4 +1,14 @@
 ---
+
+- name: pre-tasks
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Install pip dependancies 
+      pip:
+        name: netaddr
+
 - name: Install and Configure Apache Webserver
   hosts: localhost
   connection: local
