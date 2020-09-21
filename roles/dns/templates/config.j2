@@ -62,9 +62,9 @@ zone "." IN {
 
 
 
-zone "{{ domain }}" IN {
+zone "{{ base_domain }}" IN {
 	type master;
-	file	"{{ domain }}";
+	file	"{{ base_domain }}";
 };
 
 

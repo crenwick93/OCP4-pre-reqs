@@ -1,6 +1,6 @@
 ---
 - name: Install and Configure Apache Webserver
-  hosts: localhost
+  hosts: helper_node
   become: true
   roles:
     - role: httpd
@@ -8,21 +8,21 @@
         - httpd
 
 - name: Install and Configure Apache DNS
-  hosts: localhost
+  hosts: helper_node
   roles:
     - role: dns
       tags: 
         - dns
 
 - name: Install and Configure Apache Registry
-  hosts: localhost
+  hosts: helper_node
   roles:
     - role: registry
       tags: 
         - registry
 
 - name: Install and Configure Apache HAProxy
-  hosts: localhost
+  hosts: helper_node
   roles:
     - role: haproxy
       tags: 

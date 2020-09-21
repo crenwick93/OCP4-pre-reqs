@@ -1,0 +1,22 @@
+#Domain address of openshift cluster
+helper_node_name: bastion
+base_domain: renwick.dev
+
+
+
+#Private network including subnet range
+private_network: 10.80.64.128/28
+
+#IP address of helper node
+helper_node_ip: localhost
+
+#Static IPs for OCP deployment
+
+bootstrap_ip: 10.80.64.132
+
+master0_ip: 10.80.64.133
+master1_ip: 10.80.64.134
+master2_ip: 10.80.64.135
+
+worker0_ip: 10.80.64.136
+worker1_ip: 10.80.64.137

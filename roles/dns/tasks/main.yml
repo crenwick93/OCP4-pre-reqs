@@ -13,7 +13,7 @@
 - name: Create additional DNS file for A and SRV records
   template:
     src: templates/additionalConfigRecords.j2
-    dest: /var/named/"{{ domain }}"
+    dest: /var/named/"{{ base_domain }}"
     owner: named
     group: named
 

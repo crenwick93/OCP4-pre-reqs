@@ -1,12 +1,12 @@
 $TTL 1W
-@	IN	SOA	ns1.{{ domain }}.	root (
+@	IN	SOA	ns1.{{ base_base_domain }}.	root (
 			2019052300	; serial
 			3H		; refresh (3 hours)
 			30M		; retry (30 minutes)
 			2W		; expiry (2 weeks)
 			1W )		; minimum (1 week)
-	IN	NS	{{ domain }}.
-	IN	MX 10	smtp.{{ domain }}.
+	IN	NS	{{ base_domain }}.
+	IN	MX 10	smtp.{{ base_domain }}.
 ;
 ;
 ns1	IN	A	{{ helper_node_ip }}

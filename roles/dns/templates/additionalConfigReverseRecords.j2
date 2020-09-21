@@ -1,25 +1,25 @@
 $TTL 1W
-@	IN	SOA	ns1.{{ domain }}.	root (
+@	IN	SOA	ns1.{{ base_domain }}.	root (
 			2019052300	; serial
 			3H		; refresh (3 hours)
 			30M		; retry (30 minutes)
 			2W		; expiry (2 weeks)
 			1W )		; minimum (1 week)
-	IN	NS	ns1.{{ domain }}.
+	IN	NS	ns1.{{ base_domain }}.
 ;
 ; syntax is "last octet" and the host must have fqdn with trailing dot
-7	IN	PTR	master0.ocp4.{{ domain }}.
-8	IN	PTR	master1.ocp4.{{ domain }}.
-9	IN	PTR	master2.ocp4.{{ domain }}.
+7	IN	PTR	master0.ocp4.{{ base_domain }}.
+8	IN	PTR	master1.ocp4.{{ base_domain }}.
+9	IN	PTR	master2.ocp4.{{ base_domain }}.
 ;
-6	IN	PTR	bootstrap.ocp4.{{ domain }}.
+6	IN	PTR	bootstrap.ocp4.{{ base_domain }}.
 ;
-5	IN	PTR	api.ocp4.{{ domain }}.
-5	IN	PTR	api-int.ocp4.{{ domain }}.
+5	IN	PTR	api.ocp4.{{ base_domain }}.
+5	IN	PTR	api-int.ocp4.{{ base_domain }}.
 ;
-10	IN	PTR	worker0.ocp4.{{ domain }}.
-11	IN	PTR	worker1.ocp4.{{ domain }}.
-12	IN	PTR	worker2.ocp4.{{ domain }}.
+10	IN	PTR	worker0.ocp4.{{ base_domain }}.
+11	IN	PTR	worker1.ocp4.{{ base_domain }}.
+12	IN	PTR	worker2.ocp4.{{ base_domain }}.
 ;
 ;
 ;EOF
