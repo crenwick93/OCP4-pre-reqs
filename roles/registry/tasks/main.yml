@@ -28,6 +28,9 @@
     password: "{{ registry.password }}"
     mode: 0640
 
+- debug:
+    msg: "username: {{ registry.username }} password: {{ registry.password }}"
+
 - name: Ensure no pods are by default running
   command: podman rm -af
 
