@@ -41,8 +41,8 @@ etcd-1.ocp4	IN	A       {{ master1_ip }}
 etcd-2.ocp4	IN	A	{{ master2_ip }}
 ;
 ; The SRV records are IMPORTANT....make sure you get these right...note the trailing dot at the end...
-_etcd-server-ssl._tcp.ocp4	IN	SRV	0 10 2380 etcd-0.ocp4.jftest.com.
-_etcd-server-ssl._tcp.ocp4	IN	SRV	0 10 2380 etcd-1.ocp4.jftest.com.
-_etcd-server-ssl._tcp.ocp4	IN	SRV	0 10 2380 etcd-2.ocp4.jftest.com.
+_etcd-server-ssl._tcp.ocp4	IN	SRV	0 10 2380 etcd-0.ocp4.{{ base_domain }}.
+_etcd-server-ssl._tcp.ocp4	IN	SRV	0 10 2380 etcd-1.ocp4.{{ base_domain }}.
+_etcd-server-ssl._tcp.ocp4	IN	SRV	0 10 2380 etcd-2.ocp4.{{ base_domain }}.
 ;
 ;EOF
