@@ -8,6 +8,12 @@ private_network: 172.31.5.229/20
  
  #IP address of helper node
 helper_node_ip: 172.31.5.229
+
+# Image Registry Details
+registry:
+  host: 172.31.5.229
+  username: chris
+  password: redhat
  
 # Static IPs for OCP deployment
  
