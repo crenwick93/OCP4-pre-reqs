@@ -91,7 +91,7 @@ backend machine-config-server
     balance source
     mode tcp
     server boot {{ bootstrap_ip }}:22623 check
-    server master-0 {{ master0_ip }}.7:22623 check
+    server master-0 {{ master0_ip }}:22623 check
     server master-1 {{ master1_ip }}:22623 check
     server master-2 {{ master2_ip }}:22623 check
 
