@@ -13,8 +13,8 @@ helper_node_ip: 10.80.27.3
 registry:
   host: "{{ helper_node_name }}.{{ base_domain }}"
   port: 5000
-  username: chris
-  password: redhat123
+  username: james
+  password: fugazi77
 
 # Static IPs for OCP deployment
 
