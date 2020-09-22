@@ -11,7 +11,7 @@ helper_node_ip: 172.31.5.229
 
 # Image Registry Details
 registry:
-  host: 172.31.5.229
+  host: "{{ helper_node_name }} + "." {{ base_domain }}"
   port: 5000
   username: chris
   password: redhat

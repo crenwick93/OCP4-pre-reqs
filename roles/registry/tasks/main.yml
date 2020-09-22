@@ -85,7 +85,7 @@
 
 - name: Test the connection to the image registry
   uri:
-    url: http://{{ registry.host }}:5000/v2/_catalog
+    url: https://{{ registry.host }}:5000/v2/_catalog
     user: "{{ registry.username }}"
     password: "{{ registry.password }}"
     method: GET
