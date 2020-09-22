@@ -38,13 +38,16 @@
     name: "{{ registry.username }}"
     password: "{{ registry.password }}"
     mode: 0640
+  become: false
 
 
 
 - name: Ensure no pods are by default running
+  become: false
   command: podman rm -af
 
 - name: Run the registry pod 
+  become: false
   command: |
     podman run --name mirror-registry -p {{ registry.port }}:5000 \ 
         --restart=always \
