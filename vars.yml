@@ -12,6 +12,7 @@ helper_node_ip: 172.31.5.229
 # Image Registry Details
 registry:
   host: 172.31.5.229
+  port: 5000
   username: chris
   password: redhat
  
