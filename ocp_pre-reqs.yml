@@ -10,7 +10,6 @@
         name: 
           - netaddr
           - passlib
-          - firewalld
 
 - name: Install and Configure Apache Webserver
   hosts: localhost

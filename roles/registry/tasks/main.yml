@@ -7,17 +7,6 @@
       - podman
     state: present
 
-- name: Configure firewall ports
-  firewalld:
-    port: 5000/tcp
-    permanent: yes
-    state: enabled
-    immediate: yes
-    zone: "{{ item }}"
-  loop: 
-    - internal
-    - public
-
 - name: Create required directories
   file:
     path: /opt/registry/{{ item }}
