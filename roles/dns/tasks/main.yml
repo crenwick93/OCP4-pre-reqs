@@ -15,14 +15,14 @@
 - name: Create additional DNS file for A and SRV records
   template:
     src: templates/additionalConfigRecords.j2
-    dest: /var/named/"{{ base_domain }}"
+    dest: /var/named/{{ base_domain }}
     owner: named
     group: named
 
 - name: Create additional DNS file for reverse records
   template:
     src: templates/additionalConfigReverseRecords.j2
-    dest: /var/named/"{{ private_network | regex_replace('\.[^.]*$') }}".db
+    dest: /var/named/{{ private_network | regex_replace('\.[^.]*$') }}.db
     owner: named
     group: named
 
