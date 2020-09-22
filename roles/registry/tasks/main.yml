@@ -93,4 +93,5 @@
     force_basic_auth: yes
     status_code: 200
     return_content: true
+    validate_certs: false
   
