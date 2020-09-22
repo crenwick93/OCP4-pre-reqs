@@ -1,8 +1,7 @@
 - name: Install HAProxy Packages
-  package:
+  yum:
     name: haproxy
     state: present
-    use: auto
 
 - name: Copy haproxy.cfg Template
   template:
