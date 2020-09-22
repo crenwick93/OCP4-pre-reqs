@@ -22,14 +22,7 @@
 
 
 - name: Create a username and password in a httpasswd file
-  htpasswd:
-    path: /opt/registry/auth/htpasswd
-    name: "{{ registry.username }}"
-    password: "{{ registry.password }}"
-    mode: 0640
-
-- debug:
-    msg: "username: {{ registry.username }} password: {{ registry.password }}"
+  command: htpasswd -bBc /opt/registry/auth/htpasswd {{ registry.username }} {{ registry.password }}
 
 - name: Ensure no pods are by default running
   command: podman rm -af
