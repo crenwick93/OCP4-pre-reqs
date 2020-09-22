@@ -7,7 +7,9 @@
   tasks:
     - name: Install pip dependancies 
       pip:
-        name: netaddr
+        name: 
+          - netaddr
+          - passlib
 
 - name: Install and Configure Apache Webserver
   hosts: localhost
