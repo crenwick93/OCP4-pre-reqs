@@ -5,7 +5,7 @@ $TTL 1W
 			30M		; retry (30 minutes)
 			2W		; expiry (2 weeks)
 			1W )		; minimum (1 week)
-	IN	NS	{{ base_domain }}.
+	IN	NS	ns1.{{ base_domain }}.
 	IN	MX 10	smtp.{{ base_domain }}.
 ;
 ;
@@ -18,7 +18,7 @@ esxi	IN	A	10.80.158.2
 ;
 ; The api points to the IP of your load balancer
 api.ocp4	IN	A       {{ helper_node_ip }}
-api-int.ocp4	IN	A       {{ helper_node_ip }}
+api-int.ocp4	IN	A   {{ helper_node_ip }}
 ;
 ; The wildcard also points to the load balancer
 *.apps.ocp4	IN	A       {{ helper_node_ip }}

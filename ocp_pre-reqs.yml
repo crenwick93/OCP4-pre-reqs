@@ -10,6 +10,11 @@
         name: 
           - netaddr
           - passlib
+    
+    - name: Install other dependancies
+      yum:
+        name: python3-policycoreutils
+        state: present
 
 - name: Install and Configure Apache Webserver
   hosts: localhost

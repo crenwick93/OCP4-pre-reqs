@@ -3,7 +3,6 @@
     name:
       - httpd
       - php
-      - policycoreutils-python
     state: latest
     use: auto
 
@@ -38,14 +37,14 @@
     state: enabled
 
 - name: Enable/Start httpd Service
-  systemd:
+  service:
     name: httpd
     state: started
     enabled: yes
 
 - name: Restart network Service
-  systemd:
-    name: network
+  service:
+    name: NetworkManager
     state: restarted
     enabled: yes
 
