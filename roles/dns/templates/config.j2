@@ -68,9 +68,9 @@ zone "{{ base_domain }}" IN {
 };
 
 
-zone "{{ private_network | ipaddr("revdns") | regex_replace('^[^.]*') | regex_replace('\\.(?!\\w)') | regex_replace('^.') }}" IN {
+zone "{{ private_network_address | ipaddr("revdns") | regex_replace('^[^.]*') | regex_replace('\\.(?!\\w)') | regex_replace('^.') }}" IN {
 	type	master;
-	file	"{{ private_network | regex_replace('\.[^.]*$') }}.db";
+	file	"{{ private_network_address | regex_replace('\.[^.]*$') }}.db";
 };
 
 

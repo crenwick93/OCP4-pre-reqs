@@ -2,9 +2,9 @@
 helper_node_name: bastion
 base_domain: renwick.dev
  
-default_gateway: 10.80.27.1
-#Private network including subnet range
-private_network: 10.80.27.0/28
+#Network Information
+private_network_address: 10.80.27.0
+private_gateway_address: 10.80.27.1
 
  #IP address of helper node
 helper_node_ip: 10.80.27.3

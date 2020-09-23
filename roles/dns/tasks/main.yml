@@ -22,7 +22,7 @@
 - name: Create additional DNS file for reverse records
   template:
     src: templates/additionalConfigReverseRecords.j2
-    dest: /var/named/{{ private_network | regex_replace('\.[^.]*$') }}.db
+    dest: /var/named/{{ private_network_address | regex_replace('\.[^.]*$') }}.db
     owner: named
     group: named
 
