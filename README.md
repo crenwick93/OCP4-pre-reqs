@@ -26,10 +26,19 @@ The below Python and Package dependencies are installed in the pre-flight role (
 ## Deployment instructions
 Complete the vars.yml file to match your network and node details. 
 
-Note: This is only designed to be run agaist localhost at the minute but will be refactored to take an inventory.
+- Create an inventory file
+```ini
+[openshift]
+username@bastion.openshift.example.com ansible_private_key_file=privatekeyname
+```
+- Or if you have oc access locally, you can create the following inventory
+```ini
+[openshift]
+localhost ansible_connection=local
+```
 
 Run the following to playbook
 
 ```bash
-ansible-playbook ocp_pre-reqs.yml -e @vars.yml
+ansible-playbook  ocp_pre-reqs.yml -i inventory -e @vars.yml
 ```

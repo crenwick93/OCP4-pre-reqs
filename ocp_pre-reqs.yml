@@ -1,7 +1,6 @@
 ---
 - name: Pre-Flight - Install packages and pip dependencies
-  hosts: localhost
-  connection: local
+  hosts: openshift
   become: true
   roles:
     - role: pre-flight
@@ -9,8 +8,7 @@
         - pre-flight
 
 - name: Install and Configure Apache Webserver
-  hosts: localhost
-  connection: local
+  hosts: openshift
   become: true
   roles:
     - role: httpd
@@ -18,8 +16,7 @@
         - httpd
 
 - name: Install and Configure Apache DNS
-  hosts: localhost
-  connection: local
+  hosts: openshift
   become: true
   roles:
     - role: dns
@@ -27,8 +24,7 @@
         - dns
 
 - name: Install and Configure Apache Registry
-  hosts: localhost
-  connection: local
+  hosts: openshift
   become: true
   roles:
     - role: registry
@@ -36,8 +32,7 @@
         - registry
 
 - name: Install and Configure Apache HAProxy
-  hosts: localhost
-  connection: local
+  hosts: openshift
   become: true
   roles:
     - role: haproxy
