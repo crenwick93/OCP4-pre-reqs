@@ -31,7 +31,7 @@ Complete the vars.yml file to match your network and node details.
 [openshift]
 username@bastion.openshift.example.com ansible_private_key_file=privatekeyname
 ```
-- Or if you have oc access locally, you can create the following inventory
+- Or if you are running this playbook locally, you can create the following inventory
 ```ini
 [openshift]
 localhost ansible_connection=local
