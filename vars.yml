@@ -4,7 +4,7 @@ base_domain: renwick.dev
  
 #Network Information
 private_network_address: 10.80.27.0
-private_gateway_address: 10.80.27.1
+default_gateway: 10.80.27.1
 
  #IP address of helper node
 helper_node_ip: 10.80.27.3
