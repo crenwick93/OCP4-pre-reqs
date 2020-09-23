@@ -1,0 +1,80 @@
+---
+- name: Install pre-req packages for container registry
+  yum:
+    name:
+      - httpd-tools 
+      - podman-docker.noarch 
+      - podman
+    state: present
+
+- name: Create required directories
+  file:
+    path: /opt/registry/{{ item }}
+    state: directory
+    mode: '0755'
+  with_items: ["auth","certs","data"]
+
+
+- name: Create a certificate 
+  command: 
+    cmd: openssl req -newkey rsa:4096 -nodes -sha256 -keyout domain.key -x509 -days 365 -out domain.crt -subj "/C=US/ST=California/L=Sunnyvale/O=Red Hat, Inc./OU=Solution Architecture/CN={{ registry.host }}"
+    chdir: /opt/registry/certs
+
+
+- name: Create a username and password in a httpasswd file
+  command: htpasswd -bBc /opt/registry/auth/htpasswd {{ registry.username }} {{ registry.password }}
+
+- name: Ensure no pods are by default running
+  command: podman rm -af
+
+- name: Run the registry pod 
+  command: |
+    podman run --name mirror-registry -p {{ registry.port }}:5000 \ 
+        --restart=always \
+        -v /opt/registry/data:/var/lib/registry:z \
+        -v /opt/registry/auth:/auth:z \
+        -e "REGISTRY_AUTH=htpasswd" \
+        -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
+        -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+        -v /opt/registry/certs:/certs:z \
+        -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+        -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+        -d docker.io/library/registry:2
+
+
+- name: Open up the required ports thru firewall
+  firewalld:
+    port: "{{ item.port }}/tcp"
+    zone: "{{ item.zone }}"
+    state: enabled
+    permanent: yes
+  loop:
+    - { port: "{{ registry.port }}", zone: "internal"}
+    - { port: "{{ registry.port }}", zone: "public"}
+
+
+- name: If the domain.crt already exists, remove it 
+  file: 
+    path: /etc/pki/ca-trust/source/anchors/domain.crt
+    state: absent
+
+- name: Add the certificate to the trusted certificates on the ansible controller
+  copy:
+    src: /opt/registry/certs/domain.crt
+    dest: /etc/pki/ca-trust/source/anchors/
+  delegate_to: localhost
+
+- name: Update the CA trust
+  command: update-ca-trust
+
+- name: Test the connection to the image registry
+  uri:
+    url: https://{{ registry.host }}:5000/v2/_catalog
+    user: "{{ registry.username }}"
+    password: "{{ registry.password }}"
+    method: GET
+    force_basic_auth: yes
+    status_code: 200
+    return_content: true
+    validate_certs: false
+  

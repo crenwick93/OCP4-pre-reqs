@@ -1,0 +1,48 @@
+$TTL 1W
+@	IN	SOA	ns1.{{ base_domain }}.	root (
+			2019052300	; serial
+			3H		; refresh (3 hours)
+			30M		; retry (30 minutes)
+			2W		; expiry (2 weeks)
+			1W )		; minimum (1 week)
+	IN	NS	ns1.{{ base_domain }}.
+	IN	MX 10	smtp.{{ base_domain }}.
+;
+;
+ns1	IN	A	{{ helper_node_ip }}
+smtp	IN	A       {{ helper_node_ip }}
+smtp	IN	A       {{ helper_node_ip }}
+esxi	IN	A	10.80.158.2
+{{ helper_node_name }}   IN      A       {{ helper_node_ip }}
+
+;
+; The api points to the IP of your load balancer
+api.ocp4	IN	A       {{ helper_node_ip }}
+api-int.ocp4	IN	A   {{ helper_node_ip }}
+;
+; The wildcard also points to the load balancer
+*.apps.ocp4	IN	A       {{ helper_node_ip }}
+;
+; Create entry for the bootstrap host
+bootstrap.ocp4	IN	A       {{ bootstrap_ip }}
+;
+; Create entries for the master hosts
+master0.ocp4	IN	A	    {{ master0_ip }}
+master1.ocp4	IN	A       {{ master1_ip }}
+master2.ocp4	IN	A       {{ master2_ip }}
+;
+; Create entries for the worker hosts
+worker0.ocp4	IN	A       {{ worker0_ip }}
+worker1.ocp4	IN	A       {{ worker0_ip }}
+;
+; The ETCd cluster lives on the masters...so point these to the IP of the masters
+etcd-0.ocp4	IN	A       {{ master0_ip }}
+etcd-1.ocp4	IN	A       {{ master1_ip }}
+etcd-2.ocp4	IN	A	{{ master2_ip }}
+;
+; The SRV records are IMPORTANT....make sure you get these right...note the trailing dot at the end...
+_etcd-server-ssl._tcp.ocp4	IN	SRV	0 10 2380 etcd-0.ocp4.{{ base_domain }}.
+_etcd-server-ssl._tcp.ocp4	IN	SRV	0 10 2380 etcd-1.ocp4.{{ base_domain }}.
+_etcd-server-ssl._tcp.ocp4	IN	SRV	0 10 2380 etcd-2.ocp4.{{ base_domain }}.
+;
+;EOF

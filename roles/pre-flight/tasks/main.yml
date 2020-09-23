@@ -1,0 +1,11 @@
+---
+- name: Install pip dependancies 
+  pip:
+    name: 
+      - netaddr
+      - passlib
+    
+- name: Install other dependancies
+  yum:
+    name: python3-policycoreutils
+    state: present
